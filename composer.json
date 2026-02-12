@@ -2,6 +2,10 @@
     "config": {
         "platform" : {
             "php" : "7.2.0"
+        },
+        "allow-plugins": true,
+        "audit": {
+            "block-insecure": false
         }
     },
     "require": {

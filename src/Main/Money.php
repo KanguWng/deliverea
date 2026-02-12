@@ -1,6 +1,6 @@
 <?php
 
-namespace Deliverea\CoffeeMachine\Main\Money;
+namespace Deliverea\CoffeeMachine\Main;
 
 final class Money
 {

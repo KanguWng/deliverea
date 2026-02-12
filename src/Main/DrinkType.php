@@ -1,6 +1,6 @@
 <?php
 
-namespace Deliverea\CoffeeMachine\Main\DrinkType;
+namespace Deliverea\CoffeeMachine\Main;
 
 final class DrinkType
 {

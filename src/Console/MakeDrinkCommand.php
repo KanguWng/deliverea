@@ -8,6 +8,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use Deliverea\CoffeeMachine\Main\DrinkType;
+use Deliverea\CoffeeMachine\Main\Sugar;
+use Deliverea\CoffeeMachine\Main\Money;
+use Deliverea\CoffeeMachine\Main\ExtraHot;
+use Deliverea\CoffeeMachine\Main\Ticket;
+
+
 class MakeDrinkCommand extends Command
 {
     protected static $defaultName = 'app:order-drink';
@@ -44,55 +51,21 @@ class MakeDrinkCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $drinkType = strtolower($input->getArgument('drink-type'));
-        if (!in_array($drinkType, ['tea', 'coffee', 'chocolate'])) {
-            $output->writeln('The drink type should be tea, coffee or chocolate.');
-        } else {
-            /**
-             * Tea       --> 0.4
-             * Coffee    --> 0.5
-             * Chocolate --> 0.6
-             */
-            $money = $input->getArgument('money');
-            switch ($drinkType) {
-                case 'tea':
-                    if ($money < 0.4) {
-                        $output->writeln('The tea costs 0.4.');
-                        return;
-                    }
-                    break;
-                case 'coffee':
-                    if ($money < 0.5) {
-                        $output->writeln('The coffee costs 0.5.');
-                        return;
-                    }
-                    break;
-                case 'chocolate':
-                    if ($money < 0.6) {
-                        $output->writeln('The chocolate costs 0.6.');
-                        return;
-                    }
-                    break;
-            }
+        $money = $input->getArgument('money');
+        $sugars = $input->getArgument('sugars');
+        $extraHot = $input->getOption('extra-hot');
 
-            $sugars = $input->getArgument('sugars');
-            $stick = false;
-            $extraHot = $input->getOption('extra-hot');
-            if ($sugars >= 0 && $sugars <= 2) {
-                $output->write('You have ordered a ' . $drinkType);
-                if ($extraHot) {
-                    $output->write(' extra hot');
-                }
+        try {
+            $drink = new DrinkType($drinkType);
+            $amountSugar = new Sugar($sugars);
+            $moneyGiven = new Money($money);
 
-                if ($sugars > 0) {
-                    $stick = true;
-                    if($stick) {
-                        $output->write(' with ' . $sugars . ' sugars (stick included)');
-                    }
-                }
-                $output->writeln('');
-            } else {
-                $output->writeln('The number of sugars should be between 0 and 2.');
-            }
+            $moneyGiven->isEnough($drink->getName(), $drink->getPrice());
+
+            $command = new Ticket($drink, $amountSugar, $moneyGiven, new ExtraHot($extraHot));
+            $output->writeln($command->toString());
+        } catch (\InvalidArgumentException $e) { 
+            $output->writeln($e->getMessage());
         }
     }
 }

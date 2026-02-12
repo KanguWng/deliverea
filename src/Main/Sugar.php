@@ -9,7 +9,7 @@ final class Sugar
     private bool $stick;
 
     //Hacemos un constructor que valide el número de azúcares y asigne si se necesita o no un palito
-    public function __construct ($sugar) {
+    public function __construct (int $sugar) {
         if ($sugar < 0 || $sugar > 2){
             throw new \InvalidArgumentException('The number of sugars should be between 0 and 2.');
         }

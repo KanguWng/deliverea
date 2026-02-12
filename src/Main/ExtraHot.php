@@ -1,6 +1,6 @@
 <?php
 
-namespace Deliverea\CoffeeMachine\Main\ExtraHot;
+namespace Deliverea\CoffeeMachine\Main;
 
 final class ExtraHot
 {

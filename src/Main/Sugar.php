@@ -1,6 +1,6 @@
 <?php
 
-namespace Deliverea\CoffeeMachine\Main\Sugar;
+namespace Deliverea\CoffeeMachine\Main;
 
 final class Sugar
 {

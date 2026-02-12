@@ -2,11 +2,6 @@
 
 namespace Deliverea\CoffeeMachine\Main;
 
-use Deliverea\CoffeeMachine\Main\DrinkType; 
-use Deliverea\CoffeeMachine\Main\Sugar; 
-use Deliverea\CoffeeMachine\Main\Money; 
-use Deliverea\CoffeeMachine\Main\ExtraHot;
-
 final class Ticket
 {
     private $drinkType;

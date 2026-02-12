@@ -4,10 +4,10 @@ namespace Deliverea\CoffeeMachine\Main;
 
 final class Ticket
 {
-    final DrinkType $drinkType;
-    final Sugar $sugar;
-    final Money $money;
-    final ExtraHot $extraHot;
+    private $drinkType;
+    private $sugar;
+    private $money;
+    private $extraHot;
 
     public function __construct (DrinkType $drinkType, Sugar $sugar, Money $money, ExtraHot $extraHot) {
         $this->drinkType = $drinkType; 
@@ -16,7 +16,7 @@ final class Ticket
         $this->extraHot = $extraHot; 
     }
 
-    public funtion getDrinkType() { 
+    public function getDrinkType() { 
         return $this->drinkType; 
     } 
     
@@ -33,7 +33,7 @@ final class Ticket
     }
 
     public function toString() {
-        $message = 'You have ordered a '$this->drinkType->getName(); 
+        $message = 'You have ordered a ' . $this->drinkType->getName(); 
 
         if ($this->extraHot->isExtraHot()) { 
             $message .= ' extra hot'; 
@@ -43,10 +43,10 @@ final class Ticket
             $message .= ' with ' . $this->sugar->getSugar() . ' sugars'; 
 
             if ($this->sugar->hasStick()) { 
-                $message .= ' (stikck included)'; 
+                $message .= ' (stick included)'; 
             } 
         }
-        
+
         return $message;
     }
 }

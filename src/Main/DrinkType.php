@@ -11,10 +11,10 @@ final class DrinkType
         'chocolate' => 0.6,
     ];
 
-    private string $drinkType;
+    private $drinkType;
 
     //Hacemos un constructor privado para evitar que se creen instancias de esta clase desde fuera
-    private function __construct(string $drinkType) {
+    public function __construct(string $drinkType) {
         $drinkType = strtolower($drinkType);
         
         //Confirmamos que el tipo de bebida es válido, si no lo es lanzamos una excepción

@@ -5,8 +5,8 @@ namespace Deliverea\CoffeeMachine\Main;
 final class Sugar
 {
     //Definimos el número de azúcares y si se necesita o no un palito
-    private int $sugar;
-    private bool $stick;
+    private $sugar;
+    private $stick;
 
     //Hacemos un constructor que valide el número de azúcares y asigne si se necesita o no un palito
     public function __construct (int $sugar) {

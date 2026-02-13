@@ -72,8 +72,7 @@ class MakeDrinkCommand extends Command
 
             // Agregamos la venta a las ventas totales y mostramos el reporte de ventas
             $sales->addSales($drinkType, $drink->getPrice());
-            $report = new \Deliverea\CoffeeMachine\Sales\SalesReport($sales);
-            $output->writeln($report->toString());
+
         } catch (\InvalidArgumentException $e) { 
             $output->writeln($e->getMessage());
         }

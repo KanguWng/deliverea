@@ -1,4 +1,4 @@
 .idea
 vendor/
 .DS_Store
-src/Sales/sales.json
+src/

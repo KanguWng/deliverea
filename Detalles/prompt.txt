@@ -1,0 +1,103 @@
+Prompts utilizados 
+
+1. Sales.php
+Estamos trabajando en un sistema de maquina de bebidas, tengo una clase llamado DrinkType que tiene una variable llamado DRINK_AND_PRICES en el namespace Deliverea\CoffeeMachine\Main.
+Como puedo coger esa variable para usarlo en otra clase distinta?
+
+Respuesta
+private $sales = [];
+    // Inicializamos el array de ventas con 0.0 para cada tipo de bebida
+    $this->sales = array_fill_keys(array_keys(DrinkType::DRINK_AND_PRICE),0.0)
+
+2. Sales.php
+Quiero que se guardan las ventas que se hizo en un archivo json llamado sales.json.
+Si el archivo no existe creamelo y si existe sobreescribe encima.
+
+Respuesta
+private $file;
+
+    // Inicializamos el array de ventas con 0.0 para cada tipo de bebida
+    public function __construct()
+    {
+        // Archivo JSON en la misma carpeta
+        $this->file = __DIR__ . '/sales.json';
+
+        if (file_exists($this->file)) {
+            $this->sales = json_decode(file_get_contents($this->file), true);
+        } else {
+            $this->sales = array_fill_keys(
+                array_keys(DrinkType::DRINK_AND_PRICE),
+                0.0
+            );
+
+            $this->save();
+        }
+    }
+
+
+3. Index.php
+Me da este error sobre que el comando app:sales-report no existe, donde y como tengo que añadir para que sea funcional?
+
+Respuesta
+$sales = new Sales();
+
+$application->add(new SalesReportCommand($sales));
+
+4. MakeDrinkCommandTest.php
+Tenemos estas variables: drink-type, money, sugar, extraHot. 
+Quiero que me hagas una estructa para el testeo para validar las entradas y salidas que sean correctos.
+Aqui tiene el archivo de MakeDrinkCommand.php:
+
+Respuesta:
+<?php
+
+use Deliverea\CoffeeMachine\Console\MakeDrinkCommand;
+
+class MakeDrinkCommandTest extends TestCase
+{
+    private $application;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->application = new Application();
+        $this->application->add(new MakeDrinkCommand());
+    }
+
+    public function testOrderTeaSuccessfully(): void
+    {
+        $command = $this->application->find('app:order-drink');
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute([
+            'drink-type' => 'tea',
+            'money' => '0.5',
+            'sugars' => 1
+        ]);
+
+        $output = $commandTester->getDisplay();
+        $this->assertStringContainsString('You have ordered a tea with 1 sugars (stick included)', $output);
+    }
+
+    public function testInvalidDrinkShowsError(): void
+    {
+        $command = $this->application->find('app:order-drink');
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute([
+            'drink-type' => 'juice', // inválido
+            'money' => '1'
+        ]);
+
+        $output = $commandTester->getDisplay();
+        $this->assertStringContainsString('The drink type should be tea,coffee,chocolate.', $output);
+    }
+}
+
+Entre otros prompts más como acceder la BBDD.
+No funciona porque no tengo la imagen que pone en el docker-compose, y tampoco puedo acceder a la IP porque es externa.
+
+
+
+
+

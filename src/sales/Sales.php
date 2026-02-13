@@ -23,7 +23,7 @@ final class Sales
                 0.0
             );
 
-            $this->save(); // crea el archivo la primera vez
+            $this->save();
         }
     }
 
@@ -38,7 +38,6 @@ final class Sales
 
         $this->sales[$drinkType] += $amount;
 
-        // Guardamos después de sumar
         $this->save();
     }
 

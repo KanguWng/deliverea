@@ -34,8 +34,24 @@ Podemos crear un nuevo comando de consola que se encargue de mostrar el dinero g
 
 Que el commando sea:
 ```
-app:earned-money
+app:sales-report
 
 ```
+
+### Creacion de Json para guardar los datos
+
+Creación de un sales.json para guardar los datos de las ventas que se hizo y que nos de el dinero ganado por cada bebida y el total.
+
+### Testeo
+
+Creamos unas mini pruebas para ver que todo funcione correctamente.
+
+### Herramientas utilizadas
+
+1. GitHub Copilot
+2. Google Antigravity
+3. ChatGpt
+
+
 
 

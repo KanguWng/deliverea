@@ -13,6 +13,7 @@ use Deliverea\CoffeeMachine\Main\Sugar;
 use Deliverea\CoffeeMachine\Main\Money;
 use Deliverea\CoffeeMachine\Main\ExtraHot;
 use Deliverea\CoffeeMachine\Main\Ticket;
+use Deliverea\CoffeeMachine\Sales\Sales;
 
 
 class MakeDrinkCommand extends Command
@@ -59,11 +60,20 @@ class MakeDrinkCommand extends Command
             $drink = new DrinkType($drinkType);
             $amountSugar = new Sugar($sugars);
             $moneyGiven = new Money($money);
+            $sales = new Sales();
 
+            // Validamos que el dinero es suficiente para comprar la bebida, si no lo es lanzamos una excepción
             $moneyGiven->isEnough($drink->getName(), $drink->getPrice());
 
+            
+            // Creamos el ticket y mostramos el mensaje al usuario
             $command = new Ticket($drink, $amountSugar, $moneyGiven, new ExtraHot($extraHot));
             $output->writeln($command->toString());
+
+            // Agregamos la venta a las ventas totales y mostramos el reporte de ventas
+            $sales->addSales($drinkType, $drink->getPrice());
+            $report = new \Deliverea\CoffeeMachine\Sales\SalesReport($sales);
+            $output->writeln($report->toString());
         } catch (\InvalidArgumentException $e) { 
             $output->writeln($e->getMessage());
         }

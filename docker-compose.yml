@@ -15,7 +15,6 @@ services:
             coffee-machine_net:
                 ipv4_address: 172.50.0.3
         tty: true
-
 networks:
     coffee-machine_net:
         external: true

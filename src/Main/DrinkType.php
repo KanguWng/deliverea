@@ -5,7 +5,7 @@ namespace Deliverea\CoffeeMachine\Main;
 final class DrinkType
 {
     //Definimos los tipos de bebidas y sus precios en un array constante
-    private const DRINK_AND_PRICE = [
+    public const DRINK_AND_PRICE = [
         'tea' => 0.4,
         'coffee' => 0.5,
         'chocolate' => 0.6,

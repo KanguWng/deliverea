@@ -26,7 +26,8 @@ Podemos dividir en 4 clases diferentes para seguir los principios SOLID:
 3. Clase de Sugars
 4. Clase de ExtraHot
 
-Y tener otro file para los mensajes de salida.
+Y tener otro file para los mensajes de salida, llamado **Ticket.php**
+
 
 ## Creación de un nuevo comando para saber el dinero ganado con cada tipo de bebida
 
@@ -37,6 +38,11 @@ Que el commando sea:
 app:sales-report
 
 ```
+
+## Planificación de otras clases para realizar a cabo el dinero ganado
+
+1. Clase de Sales: Donde hará la suma del dinero ganado
+2. SalesReport: Donde mostrará el dinero ganado por cada bebida y el total.
 
 ### Creacion de Json para guardar los datos
 
